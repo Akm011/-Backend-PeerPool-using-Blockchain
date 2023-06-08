@@ -4,7 +4,7 @@ const router = express.Router(); // for various endpoints
 const bcrypt = require('bcrypt'); // to secure password
 
 const user = require('../models/Users'); // to store user with given schema
-const ParkingLots = require('../models/ParkingLot');
+const ParkingLots = require('../models/Driver');
 
 const { body, validationResult } = require('express-validator'); //to validate body of req so that it contains required fields
 
