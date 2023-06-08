@@ -2,17 +2,18 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose;
 
 // creating a schema for notes
-const ParkingLotSchema = new Schema({
+const DriverSchema = new Schema({
     // acting as foreign key so that notes are linked with the user
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    // Parking Lots details
-    Email: {
-        type: String
-    },
+    // Driver details
     Name: {
+        type: String,
+        required: true
+    },
+    Email: {
         type: String,
         required: true
     },
@@ -20,36 +21,21 @@ const ParkingLotSchema = new Schema({
         type: String,
         required: true
     },
-    Fee: {
-        type: Number,
-        required: true
-    },
-    TotalSlots: {
-        type: Number,
-        required: true
-    },
-    Lattitude: {
-        type: Number,
-        required: true
-    },
-    Longitude: {
-        type: Number,
-        required: true
-    },
-    IsApproved:{
+
+    IsAvailable:{
         type: Boolean,
-        default:false
+        default:true
     },
-    Status: {
+    VehicleType: {
         type: String,
-        enum : ['DELETE','UPDATE','NEW'],
-        default: 'NEW'
+        enum : ['BIKE','AUTO','HATCHBACK','MINI SUV','SEDAN','SUV'],
+        required:true
     },
     date: {
         type: Date,
         default: Date.now
     }
 })
-const ParkingLot = mongoose.model('Parking Lot', ParkingLotSchema);
+const Driver = mongoose.model('Driver', DriverSchema);
 
-module.exports = ParkingLot;
+module.exports = Driver;``
