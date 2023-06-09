@@ -18,6 +18,7 @@ let JWT_SECRET = "Smart Parking management -- Project"; // can be any string so 
 router.post('/createUser', [
   body('name', "User name can not be blank").isLength({ min: 1 }),
   body('email', "Enter a valid email id").isEmail(),
+  body('phone', "Enter a valid phone number").isLength({ min: 10}),
   body('password', "Password must be at least 1 characters").isLength({ min: 1 })
 ], async (req, res) => {
   try {
@@ -46,9 +47,10 @@ router.post('/createUser', [
     User=await user.create({
       name: req.body.name,
       email: req.body.email,
+      phone: req.body.phone,
       password: hashedpass
     });
-    console.log("hey")
+    console.log("saved in DB")
     // using id to create access token 
     const data = {
       user: {
@@ -60,6 +62,7 @@ router.post('/createUser', [
     res.json({ name:req.body.name,authToken });
   }
   catch (err) {
+    console.log(err);
     res.status(500).send(err);
   }
 
