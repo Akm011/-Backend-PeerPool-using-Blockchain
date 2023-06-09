@@ -48,6 +48,7 @@ router.post('/createUser', [
       name: req.body.name,
       email: req.body.email,
       phone: req.body.phone,
+      userType: req.body.userType,
       password: hashedpass
     });
     console.log("saved in DB")
@@ -59,7 +60,7 @@ router.post('/createUser', [
     }
     const authToken = jwt.sign(data, JWT_SECRET);
     // console.log(User);
-    res.json({ name:req.body.name,authToken });
+    res.json({ name:req.body.name,authToken, userType});
   }
   catch (err) {
     console.log(err);
@@ -99,7 +100,7 @@ router.post('/login', [
     let name=vuser.name;
     const allParkingLots = await ParkingLots.find({user:vuser._id,IsApproved:true});
     const authToken = jwt.sign(data, JWT_SECRET);
-    res.json({ name,authToken,allParkingLots });
+    res.json({ name,authToken,allParkingLots,userType:vuser.userType});
 
   } catch (error) {
     console.error(error.message);
