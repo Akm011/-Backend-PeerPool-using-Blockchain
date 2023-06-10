@@ -69,8 +69,8 @@ router.delete('/deleteDriver/:id', fetchUser, async (req, res) => {
     if (Driver.user.toString() !== req.user.id) {
         return res.status(401).send("Not Allowed");
     }
-    Driver = await Drivers.findByIdAndUpdate(req.params.id,{$set:{"IsApproved":false,"Status":"DELETE"}});
-    res.status(200).send({"Remark":"Request is under process."});
+    Driver = await Drivers.findByIdAndDelete(req.params.id,{$set:{"IsApproved":false,"Status":"DELETE"}});
+    res.status(200).send({"Remark":"The id is deleted"});
 })
 
 

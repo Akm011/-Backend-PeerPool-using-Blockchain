@@ -60,7 +60,7 @@ router.post('/createUser', [
     }
     const authToken = jwt.sign(data, JWT_SECRET);
     // console.log(User);
-    res.json({ name:req.body.name,authToken, userType});
+    res.json({ name:req.body.name,authToken, userType:req.body.userType});
   }
   catch (err) {
     console.log(err);
@@ -71,10 +71,10 @@ router.post('/createUser', [
 
 
 // Route 2: for login using POST: /api/auth/login
-router.post('/login', [
-  body('email', "Enter a valid Email").isEmail()
-], async (req, res) => {
+router.post('/login',[
+  body('email', "Enter a valid email id").isEmail(),],async (req, res) => {
   const err = validationResult(req);
+  console.log(req.body)
   if (!err.isEmpty())
     return res.status(400).json({ errors: err.array() });
   const { email, password } = req.body;
