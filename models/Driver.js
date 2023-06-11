@@ -31,6 +31,10 @@ const DriverSchema = new Schema({
         enum : ['BIKE','AUTO','HATCHBACK','MINI SUV','SEDAN','SUV'],
         required:true
     },
+    Phone: {
+        type: String,
+        required:true
+    },
     date: {
         type: Date,
         default: Date.now
