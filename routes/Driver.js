@@ -12,8 +12,15 @@ router.get('/fetchAllDrivers', fetchUser, async (req, res) => {
     res.json(Drivers);
 })
 // Route 2: Fetch all parking lot for admin.
+router.post('/driverWithCartype', async (req, res) => {
+    let cartype=req.body.cartype.toUpperCase();
+    const allDrivers = await Drivers.find({VehicleType:cartype,IsAvailable:true})
+    res.json(allDrivers);
+})
+
+// Route 2: Fetch all parking lot for admin.
 router.get('/fetchAllDrivers_admin', async (req, res) => {
-    const allDrivers = await Drivers.find({IsApproved:true})
+    const allDrivers = await Drivers.find({IsAvailable:true})
     res.json(allDrivers);
 })
 // Route 3: Create a Driver using POST : Login required
@@ -28,7 +35,7 @@ router.post('/createDriver', fetchUser, async (req, res) => {
             return res.status(400).json({ errors: error.array });
         }
         const Driver = new Drivers({
-            Name: Name,Email:user.email, WalletAddress: WalletAddress,user: req.user.id,VehicleType:VehicleType
+            Name: Name,Email:user.email, WalletAddress: WalletAddress,user: req.user.id,VehicleType:VehicleType,Phone:user.phone
         })
         const saveDrivers = await Driver.save();
         res.json(saveDrivers);
